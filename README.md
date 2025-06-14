@@ -7,7 +7,6 @@ A tiny Node 22 script that:
 2. Listens to every message in the groups & channels you already follow.  
 3. **Mirrors** the original post (photo/video/text) to a target channel.  
 4. Generates a short **Hebrew summary** with OpenAI and appends a permalink to the source message.  
-5. Saves media locally under `./media/<chatId>/<msgId>.*`.
 
 ---
 
@@ -20,9 +19,6 @@ npm install                # installs telegram, openai, fs-extra, input, dotenv
 cp .env.example .env       # fill in the blanks (see next section)
 node index.js              # first run asks for phone & code, then prints STRING_SESSION
 ````
-
-Copy the printed `STRING_SESSION=…` back into `.env`.
-Subsequent runs are fully headless.
 
 ---
 
@@ -37,23 +33,6 @@ Subsequent runs are fully headless.
 | `OPENAI_API_KEY`   | Create in [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys), copy the `sk-…` value.                                                                             |
 | `MODEL` (optional) | Chat model for summarising (default `gpt-4o-mini`).                                                                                                                                        |
 | `SUMMARY_MAX_TOK`  | Max tokens for the Hebrew summary (default `256`).                                                                                                                                         |
-
----
-
-## 🛠 Behaviour
-
-* **Media** (photos, videos, documents)
-
-  * Downloaded to `./media/…` **and** forwarded unchanged to `DEST_CHAT_ID`.
-* **Text / Captions**
-
-  * Passed to ChatGPT → summary posted as:
-
-    ```
-    <hebrew summary>
-
-    🔗 מקור: https://t.me/<source>/<msgId>
-    ```
 
 ---
 
